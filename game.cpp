@@ -30,7 +30,7 @@ void Game::start()
     displayGameInstruction();
     if (loadBoard()) {
         this->board -> display(this->player);
-        if(initializePlayer()){
+        if(initMenu()){
             play();
         }
     };
@@ -41,9 +41,7 @@ bool Game::loadBoard()
     std::string input;
     do {
         input = handleLoadInput();
-        if (input == error1){
-            displayGameInstruction();
-        }
+        displayGameInstruction();
     }while(input == error1);
 
     if (input == COMMAND_QUIT){
@@ -89,8 +87,7 @@ std::string Game::handleLoadInput(){
     return error1;
 }
 
-bool Game::initializePlayer()
-{
+bool Game::initMenu(){
     std::string input;
     std::vector<std::string> inputData;
     do {
@@ -102,7 +99,7 @@ bool Game::initializePlayer()
             generateBoard(input);
             this->board->display(this->player);
         }
-    }while(input == error1 || std::regex_match (input, loadBoardRegex));
+    }while(input == error1 || std::regex_match (input, loadBoardRegex) || input == error2);
 
     if (input == COMMAND_QUIT){
         return false;
@@ -112,8 +109,7 @@ bool Game::initializePlayer()
         Helper::splitString(input,inputData,",");
         int x = std::stoi(inputData[0]);
         int y = std::stoi(inputData[1]);
-        Position* initPositionPtr = new Position(x,y);
-        this->player->initialisePlayer(initPositionPtr, directionConverter(inputData[2]));
+        this->player->initialisePlayer(new Position(x,y), directionConverter(inputData[2]));
         this->board->display(this->player);
         return true;
     }
@@ -151,11 +147,11 @@ std::string Game::handleInitInput(){
     else if(inputTokens[0] == COMMAND_INIT && initCommandCheck(inputData)){ 
         int x = std::stoi(inputData[0]);
         int y = std::stoi(inputData[1]);
-        if (!this->board->placePlayer(Position(x,y))){
-            this->board->display(this->player);
-            return error2;
+        if (this->board->placePlayer(Position(x,y))){
+            return inputTokens[1];
         }
-        return inputTokens[1];
+        return error2;
+        
     }
 
     else if(inputTokens[0] == COMMAND_GENERATE_RANDOM 

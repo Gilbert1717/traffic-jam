@@ -40,7 +40,7 @@ private:
      * Initialize the player. 
      * Return true if the player is initilized and false for quiting the game.
      */
-    bool initializePlayer();
+    bool initMenu();
 
     /**
      * Play the game and move the player interactively.
