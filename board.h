@@ -30,11 +30,14 @@ class Board
 {
 
     // Two default board configurations
-    const static std::vector<std::vector<Cell> > BOARD_1;
-    const static std::vector<std::vector<Cell> > BOARD_2;
+    // const static std::vector<std::vector<Cell> > BOARD_1;
+    // const static std::vector<std::vector<Cell> > BOARD_2;
 
 private:
     std::vector<std::vector<Cell> >* board;
+    int size;
+    bool in_array(int intArr[], int arrSize, int needle);
+    void placeBlocker(int arr[], int arrSize, int size);
 
 public:
 
@@ -46,8 +49,8 @@ public:
     /**
      * Load the board to either BOARD_1 or BOARD_2 according to user input.
      */
-    void load(int boardId);
-
+    void load(int size, double percent);
+    int getSize();
     /**
      * Try to place the PLAYER cell at the provided position.
      *

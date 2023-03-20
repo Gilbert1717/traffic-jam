@@ -62,13 +62,17 @@ private:
      */
 
     std::string handleLoadInput();
+    void generateBoard(std::string input);
 
     std::string handleInitInput();
+
+    bool initCommandCheck(std::vector<std::string> input);
 
     std::string handlePlayInput();
 
     Direction directionConverter(std::string s);
 
+    bool validatePosition();
 
 public:
 

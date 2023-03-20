@@ -12,6 +12,9 @@ using std::vector;
 #define NAME "Yiqi Du"
 #define ID "s3665887"
 #define EMAIL "s3665887@student.rmit.edu.au"
+#define menuOption1 "1. Play game"
+#define menuOption2 "2. Show student's information"
+#define menuOption3 "3. Quit"
 
 
 void showStudentInformation(string name, string id, string email);
@@ -42,14 +45,11 @@ void showStudentInformation(string name, string id, string email){
 }
 
 void displayMainMenu() {
-    std::string option1 = "1. Play game";
-    std::string option2 = "2. Show student's information";
-    std::string option3 = "3. Quit";
     std::cout << "Welcome to Car Board" << std::endl;
     std::cout << "--------------------" << std::endl;
-    std::cout << option1 << std::endl;
-    std::cout << option2 << std::endl;
-    std::cout << option3 << std::endl;
+    std::cout << menuOption1 << std::endl;
+    std::cout << menuOption2 << std::endl;
+    std::cout << menuOption3 << std::endl;
 }
 
 
@@ -59,6 +59,9 @@ string getMenuInput(){
     std::cout << "Please enter your choice: ";
     std::cin >> input;
     while(input != "1" && input != "2" && input != "3") {
+        std::cout << std::endl;
+        Helper::printInvalidInput();
+        displayMainMenu();
         std::cin >> input;
     };
     return input;
