@@ -58,23 +58,27 @@ bool Game::loadBoard()
 
 bool Game::initializePlayer()
 {
-    //TODO
     std::string input;
     std::vector<std::string> inputData;
     do {
         input = handleInitInput();
+        std::cout << input << std::endl;
         if (input == "1" || input == "2") {
             int boardId = std::stoi(input);
             (this->board) -> load(boardId);
             this->board->display(this->player);
         }
-    }while(input != "3" && input != COMMAND_QUIT);
+        if (input == "0"){
+            displayGameInstruction();
+        }
+    }while(input != COMMAND_QUIT && input != "4" );
 
     if (input == COMMAND_QUIT){
         return false;
     } 
 
     else {
+        std::cout << input << std::endl;
         this->board->display(this->player);
         return true;
     }
@@ -89,6 +93,9 @@ void Game::play()
     std::string input;
     do {
         input = handlePlayInput();
+        if (input == "0"){
+            displayGameInstruction();
+        }
     }while(input != COMMAND_QUIT);
 
 }
@@ -111,6 +118,7 @@ std::string Game::handleLoadInput(){
     }
 
     Helper::printInvalidInput();
+    displayGameInstruction();
     return "0";
 }
 
@@ -133,8 +141,11 @@ std::string Game::handleInitInput(){
             int y = std::stoi(inputData[1]); 
             this->player->initialisePlayer(new Position(x,y),directionConverter(inputData[2]));
             if(this->board->placePlayer(this->player->position)){
+                return "4";
+            }
+            else{
                 return "3";
-            };
+            }
         }
     }
 

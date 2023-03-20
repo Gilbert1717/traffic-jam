@@ -25,6 +25,8 @@ int main()
     std::string input;
     displayMainMenu();
     do{
+        std::cout << std::endl;
+        std::cout << "Please enter your choice: ";
         input = getMenuInput(); 
         executeMenu(input);
     }
@@ -50,8 +52,6 @@ void displayMainMenu() {
     std::cout << option1 << std::endl;
     std::cout << option2 << std::endl;
     std::cout << option3 << std::endl;
-    std::cout << std::endl;
-    std::cout << "Please enter your choice: ";
 }
 
 
