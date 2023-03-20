@@ -50,16 +50,19 @@ void displayMainMenu() {
     std::cout << option1 << std::endl;
     std::cout << option2 << std::endl;
     std::cout << option3 << std::endl;
+    std::cout << std::endl;
+    std::cout << "Please enter your choice: ";
 }
 
 
 string getMenuInput(){
     std::string input; 
-    std::cout << std::endl;
-    std::cout << "Please enter your choice: ";
-    std::cin >> input;
+    std::getline(std::cin >> std::ws, input);
     while(input != "1" && input != "2" && input != "3") {
-        std::cin >> input;
+        std::cout << std::endl;
+        Helper::printInvalidInput();
+        displayMainMenu();
+        std::getline(std::cin >> std::ws, input);
     };
     return input;
 }
