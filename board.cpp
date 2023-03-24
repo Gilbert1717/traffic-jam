@@ -43,7 +43,6 @@ Board::~Board()
 
 void Board::load(int boardId)
 {
-    std::cout << boardId << std::endl;
     if (boardId == 1) {
         this->board = new std::vector<std::vector<Cell> > (BOARD_1);
     }
@@ -58,18 +57,16 @@ void Board::load(int boardId)
 
 bool Board::placePlayer(Position position)
 {
-    // TODO
     if ((*(this->board))[position.x][position.y] != Cell::BLOCKED) {
         (*(this->board))[position.x][position.y] = Cell::PLAYER;
         return true;
     }
     std::cout << "This init position is blocked! Please re-init\n";
-    return false; // feel free to revise this line, depending on your implementation.
+    return false; 
 }
 
 PlayerMove Board::movePlayerForward(Player* player)
 {
-    // TODO
     Position position = player->getNextForwardPosition();
     if (position.x < 0 || position.x >= (this->board) -> size() ||
         position.y < 0 || position.y >= (this->board) -> at(0).size()){
@@ -87,6 +84,7 @@ PlayerMove Board::movePlayerForward(Player* player)
 
 void Board::display(Player* player)
 {
+    std::cout << std::endl;
     std::cout << "| ";
     for (int i=0; i < (this->board) -> size(); ++i){
         std::cout << "|" << i;

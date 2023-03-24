@@ -11,14 +11,12 @@ const std::regex initPlayerRegex ("[0-9](,)[0-9](,)(north|east|south|west)");
 
 Game::Game()
 {
-    // TODO
     this->board = new Board();
     this->player = new Player();
 }
 
 Game::~Game()
 {
-    // TODO
     delete this->board;
     this->board = nullptr;
 
@@ -62,7 +60,6 @@ bool Game::initializePlayer()
     std::vector<std::string> inputData;
     do {
         input = handleInitInput();
-        std::cout << input << std::endl;
         if (input == "1" || input == "2") {
             int boardId = std::stoi(input);
             (this->board) -> load(boardId);
@@ -78,7 +75,6 @@ bool Game::initializePlayer()
     } 
 
     else {
-        std::cout << input << std::endl;
         this->board->display(this->player);
         return true;
     }
@@ -88,7 +84,6 @@ bool Game::initializePlayer()
 
 void Game::play()
 {
-    //TODO
     std::cout << "start game\n";
     std::string input;
     do {
@@ -168,7 +163,6 @@ std::string Game::handlePlayInput(){
     }
 
     if(input == COMMAND_FORWARD || input == COMMAND_FORWARD_SHORTCUT){
-        //TODO: Position validation
         PlayerMove moveResult = this->board->movePlayerForward(this->player);
         if (moveResult == PlayerMove::OUTSIDE_BOUNDS){
             std::cout << "Error: cannot move forward because the road is ended\n";
@@ -210,7 +204,7 @@ void Game::displayGameInstruction() {
     std::cout << "forward (or f)\n";
     std::cout << "turn_left (or l)\n";
     std::cout << "turn_right (or r)\n";
-    std::cout << "quit\n\n";
+    std::cout << "quit\n";
 }
 
 Direction Game::directionConverter(std::string s){
