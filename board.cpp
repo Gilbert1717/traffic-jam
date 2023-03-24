@@ -3,34 +3,7 @@
 
 using std::vector;
 
-// const vector<vector<Cell>> Board::BOARD_1 =
-// {
-//     { BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, BLOCKED, EMPTY, BLOCKED, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED }
-// };
 
-// const vector<vector<Cell>> Board::BOARD_2 =
-// {
-//     { BLOCKED, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, EMPTY, EMPTY, EMPTY, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY },
-//     { EMPTY, BLOCKED, BLOCKED, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY }
-// };
-// new std::vector<std::vector<Cell> > (size , vector<Cell> (size, Cell::EMPTY))
 Board::Board()
 {
     this->board =  nullptr;
@@ -50,51 +23,22 @@ int Board::getSize(){
 void Board::load(int size, double percent){
     this->board = new std::vector<std::vector<Cell> > (size , vector<Cell> (size, Cell::EMPTY));
     this->size = size;
-    int totalPlot = size*size;
-    int blockAmount = int(floor(totalPlot*percent));
-    std::cout << int(totalPlot*percent) << "floor\n";
-    int blockPosition[blockAmount];
-    for (int i = 0; i < blockAmount; i++){
-        int randPosition = rand() % totalPlot;
-        while (in_array(blockPosition, blockAmount, randPosition)) {
-            randPosition = rand() % totalPlot;
-        }
-        blockPosition[i] = randPosition;
+    int numberOfBlocks = int(floor(size*size*percent));
+    placeBlocker(numberOfBlocks);
+}
+
+void Board::placeBlocker(int numberOfBlocks){
+    int randX;
+    int randY;
+    for (int i = 0; i < numberOfBlocks; i++){
+        do {randX = rand() % this->size;
+        randY = rand() % this->size;}
+        while((*(this->board))[randX][randY] == Cell::BLOCKED);
+        (*(this->board))[randX][randY] = Cell::BLOCKED;
     }
-    std::cout << std::endl;
-    placeBlocker(blockPosition, blockAmount, size);
 }
 
-void Board::placeBlocker(int arr[], int arrSize, int size){
-    for (int i = 0; i < arrSize; i++){
-        int row = arr[i]/size;
-        int col = arr[i]%size;
-        (*(this->board))[row][col] = Cell::BLOCKED;
-    }
-    std::cout << std::endl;
-}
 
-bool Board::in_array(int arr[], int arrSize, int needle){
-    bool result = false;
-    for(int i=0; i<arrSize; i++)
-        if (arr[i] == needle)
-            result = true;
-    return result;
-}
-// void Board::load(int boardId)
-// {
-//     std::cout << boardId << std::endl;
-//     if (boardId == 1) {
-//         this->board = new std::vector<std::vector<Cell> > (BOARD_1);
-//     }
-
-//     else if (boardId == 2) {
-//         this->board = new std::vector<std::vector<Cell> > (BOARD_2);
-//     }   
-//     else {
-//         std::cout << "Board ID does not exist\n";
-//     } 
-// }
 
 bool Board::placePlayer(Position position)
 {
@@ -127,7 +71,6 @@ PlayerMove Board::movePlayerForward(Player* player)
 
 void Board::display(Player* player)
 {
-    int block = 0;
     std::cout << "| ";
     for (int i=0; i < (this->board) -> size(); ++i){
         std::cout << "|" << i%10;
@@ -138,7 +81,6 @@ void Board::display(Player* player)
         for (int j=0; j < (this->board) -> at(i).size(); ++j) {
             std::cout << "|";
             if((*(this->board))[i][j] == Cell::BLOCKED) {
-                block ++;
                 std::cout << "*";
             } 
             else if((*(this->board))[i][j] == Cell::EMPTY) {
@@ -150,8 +92,6 @@ void Board::display(Player* player)
         }
         std::cout << "|" << std::endl;
     };
-    std::cout << block << std::endl;
-    
 }
 
 

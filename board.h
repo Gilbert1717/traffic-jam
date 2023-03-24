@@ -36,8 +36,7 @@ class Board
 private:
     std::vector<std::vector<Cell> >* board;
     int size;
-    bool in_array(int intArr[], int arrSize, int needle);
-    void placeBlocker(int arr[], int arrSize, int size);
+    void placeBlocker(int numberOfBlocks);
 
 public:
 

@@ -57,7 +57,7 @@ string getMenuInput(){
     std::string input; 
     std::cout << std::endl;
     std::cout << "Please enter your choice: ";
-    std::cin >> input;
+    std::getline(std::cin >> std::ws, input);
     while(input != "1" && input != "2" && input != "3") {
         std::cout << std::endl;
         Helper::printInvalidInput();
