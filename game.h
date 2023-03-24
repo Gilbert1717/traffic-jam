@@ -60,18 +60,36 @@ private:
     /**
      * Get the input from init player menu
      */
-
-    std::string handleLoadInput();
-    void generateBoard(std::string input);
-
     std::string handleInitInput();
 
-    bool initCommandCheck(std::vector<std::string> input);
+    /**
+     * Get the input from load board menu
+     */
+    std::string handleLoadInput();
 
+    /**
+     * Get the input from play game menu
+     */
     std::string handlePlayInput();
 
-    Direction directionConverter(std::string s);
+    /**
+     * generate board after taking user input
+     */
+    void generateBoard(std::string input);
+    
+    /**
+     * validate the init command
+     */
+    bool initCommandCheck(std::vector<std::string> input);
 
+    /**
+     * convert direction string to enum<direct>
+     */
+    Direction directionConverter(std::string directionString);
+
+    /**
+     * validate the moving forwad position
+     */
     bool validatePosition();
 
 public:

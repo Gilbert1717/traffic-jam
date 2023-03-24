@@ -44,8 +44,6 @@ public:
 	Position position; // x,y coordinates
 	Direction direction;
 	unsigned moves;
-	int length;
-	int weigth;
 
 	Player();
 	

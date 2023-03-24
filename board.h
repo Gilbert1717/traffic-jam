@@ -29,27 +29,33 @@ enum PlayerMove
 class Board
 {
 
-    // Two default board configurations
-    // const static std::vector<std::vector<Cell> > BOARD_1;
-    // const static std::vector<std::vector<Cell> > BOARD_2;
 
 private:
     std::vector<std::vector<Cell> >* board;
     int size;
+
+    /**
+     * randomly generate block cells and place them to the board
+     */
     void placeBlocker(int numberOfBlocks);
 
 public:
 
     /**
-     * Initilize and destory a 10*10 board
+     * Initilize and destory board
      */
     Board();
     ~Board();
     /**
-     * Load the board to either BOARD_1 or BOARD_2 according to user input.
+     * Generate and load the board according to user input (board size and percentage of block cells).
      */
     void load(int size, double percent);
+
+    /**
+     * size getter.
+     */
     int getSize();
+
     /**
      * Try to place the PLAYER cell at the provided position.
      *
