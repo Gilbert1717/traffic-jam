@@ -19,7 +19,29 @@ void displayMainMenu();
 string getMenuInput();
 void executeMenu(string input);
 
-
+/**
+     * Implemetation of menu functions:
+     * the uses input is validated using do while loop. The program will take an input frist and validate it.
+     * If the input is not an expected command, it will trigger the while condition and keep looping through untill
+     * get the right input command.  
+     * 
+     * Implemetation of play game:
+     * The program will take the use's input and validate it using combination of regex and string comparsion. 
+     * When the player wants to move forward, base on the player's current position and direction, the 
+     * program will check if the next position is a valid cell to place the player. If the cell is valid, 
+     * the program will move player to that position and add 1 move to the player.
+     * 
+     * Issue encountered:
+     * When receiving the user input, the 'std::cin' function will split the input string into multiple inputs based on the 
+     * whitespace.The 'readinput' function in helper class does not work properly as well. Base on some research, I found 
+     * another readline function which reads the user input from console with whitespaces.
+     * 
+     * Potential improvement:
+     * The 'Player' class can be removed and replayed by a coordinate in the 'Board' class, by doing so the 'direction' 
+     * and 'moves' attributes can be added to the 'board' class. This way, the methods in the 'board' class can use player 
+     * directly instead of taking the player object as a parameter. This will help to reduce the code complexity of this 
+     * program.
+*/
 int main()
 {
     std::string input;
