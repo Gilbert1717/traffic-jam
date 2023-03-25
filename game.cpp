@@ -200,7 +200,6 @@ std::string Game::handlePlayInput(){
     }
 
     if(input == COMMAND_FORWARD || input == COMMAND_FORWARD_SHORTCUT){
-        //Position validation
         if(validatePosition()){
             this->board->display(this->player);
             return COMMAND_FORWARD;
